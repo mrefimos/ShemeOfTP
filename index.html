@@ -61,15 +61,8 @@
   #svg-container svg { max-width: 100%; max-height: 100%; width: 100%; height: 100%; display: block; transition: transform 0.2s ease-out; }
 
   /* Подсветка и тултипы */
-  #svg-container svg .room-elem {
-    pointer-events: all;
-    cursor: pointer;
-    transition: fill 0.15s, fill-opacity 0.15s;
-  }
-  #svg-container svg .room-hovered {
-    fill: rgba(44, 79, 167, 0.15) !important;
-    fill-opacity: 1 !important;
-  }
+  #svg-container svg .room-elem { pointer-events: all; cursor: pointer; transition: fill 0.15s, fill-opacity 0.15s; }
+  #svg-container svg .room-hovered { fill: rgba(44, 79, 167, 0.15) !important; fill-opacity: 1 !important; }
 
   #svg-container svg.pannable, #svg-container svg.pannable .room-elem { cursor: grab; }
   #svg-container svg.pannable.panning, #svg-container svg.pannable.panning .room-elem { cursor: grabbing; }
@@ -133,35 +126,17 @@
   }
   #print-header { display: none; }
 
-    /* Адаптив для мобильных устройств и планшетов */
+  /* Адаптив */
   @media (max-width: 1024px) {
-    main {
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-    }
-    .plan-wrap {
-      order: -1; /* Карта всегда сверху */
-      height: 60vh;
-      min-height: 400px;
-    }
-    aside {
-      height: auto;
-      max-height: none;
-      border-right: none;
-      border-left: none;
-      border-top: 1px solid var(--border);
-    }
-    /* В полноэкранном режиме на мобилке скрываем шапку, чтобы карта была на весь экран */
-    main.fullscreen .plan-wrap {
-      height: 100vh;
-      min-height: 100vh;
-    }
+    main { display: flex; flex-direction: column; overflow-y: auto; }
+    .plan-wrap { order: -1; height: 60vh; min-height: 400px; }
+    aside { height: auto; max-height: none; border-right: none; border-left: none; border-top: 1px solid var(--border); }
+    main.fullscreen .plan-wrap { height: 100vh; min-height: 100vh; }
     header { transition: all 0.3s; }
     main.fullscreen header { display: none; }
   }
 
-    /* Часы */
+  /* Часы */
   #live-clock { font-variant-numeric: tabular-nums; }
 
   /* Блок расписания в карточке */
@@ -169,21 +144,10 @@
   .schedule-title { font-size: 11px; font-weight: 600; color: var(--gray); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
   .schedule-list { display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; padding-right: 4px; }
 
-  /* Стилизация скроллбара */
   .schedule-list::-webkit-scrollbar { width: 4px; }
   .schedule-list::-webkit-scrollbar-thumb { background: var(--gray-soft); border-radius: 4px; }
 
-  .schedule-item {
-    background: #fff;
-    border: 1px solid rgba(0,0,0,0.06);
-    border-radius: 6px;
-    padding: 8px 10px;
-    font-size: 11px;
-    line-height: 1.4;
-    border-left: 3px solid var(--gray-soft);
-  }
-
-  /* Пастельные цвета индикаторов */
+  .schedule-item { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 6px; padding: 8px 10px; font-size: 11px; line-height: 1.4; border-left: 3px solid var(--gray-soft); }
   .sec-it { border-left-color: #A0C4FF; background: #F4F8FF; }
   .sec-radio { border-left-color: #FDE68A; background: #FFFDF5; }
   .sec-chem { border-left-color: #A7F3D0; background: #F4FDF9; }
@@ -193,14 +157,13 @@
   .sch-time { font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
   .sch-group { color: var(--blue); font-weight: 500; }
   .sch-teacher { color: var(--gray); font-size: 10px; margin-top: 2px; }
-
 </style>
 </head>
 <body>
 
 <header>
   <h1>Конструктор зонирования Детского технопарка «Альтаир»</h1>
-    <div id="live-clock" style="font-size: 14px; color: var(--gray); font-weight: 500; margin-left: auto; margin-right: 20px;"></div>
+  <div id="live-clock" style="font-size: 14px; color: var(--gray); font-weight: 500; margin-left: auto; margin-right: 20px;"></div>
   <button id="btn-fullscreen">На весь экран</button>
 </header>
 
@@ -240,7 +203,8 @@
     <div id="svg-container">
       <!-- ============================================================
            ВСТАВЬТЕ СЮДА SVG ЦЕЛИКОМ (от <svg ...> до </svg>)
-           ============================================================ --><svg width="2434" height="1227" viewBox="0 0 2434 1227" fill="none" xmlns="http://www.w3.org/2000/svg">
+           ============================================================ -->
+<svg width="2434" height="1227" viewBox="0 0 2434 1227" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="&#208;&#159;&#208;&#155;&#208;&#144;&#208;&#157;">
 <g id="&#208;&#173;&#209;&#130;&#208;&#176;&#208;&#182; 2">
 <rect width="1255" height="1227" rx="2" fill="white"/>
@@ -1490,10 +1454,11 @@
 </main>
 
 <!-- ============================================================
-     ВСТАВЬТЕ СЮДА ПОЛНЫЙ JSON-МАНИФЕСТ
+     ЗДЕСЬ ДОЛЖЕН БЫТЬ ПОЛНЫЙ JSON-МАНИФЕСТ
+     <script id="manifest" type="application/json"> ... </script>
      ============================================================ -->
-<script id="manifest" type="application/json">
-{
+ <script id="manifest" type="application/json">
+   {
   "version": 1,
   "floors": {
     "f1": { "label": "1 этаж", "group": "Этаж 1", "outline": "f1_outline" },
@@ -1969,12 +1934,16 @@
   ]
 }
 </script>
-
 <script>
+
 (function () {
   'use strict';
 
   const manifestEl = document.getElementById('manifest');
+  if (!manifestEl) {
+    console.error('Манифест не найден!');
+    return;
+  }
   const manifest = JSON.parse(manifestEl.textContent);
 
   const svg = document.querySelector('#svg-container svg');
@@ -1983,7 +1952,8 @@
   const table = document.getElementById('rooms-table');
 
   if (!svg) return;
-    // --- Часы реального времени ---
+
+  // --- Часы реального времени ---
   function updateClock() {
     const now = new Date();
     const dateStr = now.toLocaleDateString('ru-RU', { weekday: 'short', day: 'numeric', month: 'long' });
@@ -1998,18 +1968,18 @@
   let scheduleData = [];
   fetch('./schedule.json')
     .then(response => {
-      if (!response.ok) throw new Error('Нет файла schedule.json');
+      if (!response.ok) throw new Error('Файл schedule.json не найден (404)');
       return response.json();
     })
     .then(data => {
       scheduleData = data;
-      // Если карточки уже отрисованы, нужно обновить их, добавив расписание
+      // Обновляем карточки, которые уже есть на странице
       document.querySelectorAll('.room-card').forEach(card => {
         const roomId = card.dataset.roomId;
         if (roomId) injectSchedule(card, roomId);
       });
     })
-    .catch(err => console.warn('Расписание не загружено:', err));
+    .catch(err => console.warn('Расписание не загружено:', err.message));
 
   svg.removeAttribute('width');
   svg.removeAttribute('height');
@@ -2137,19 +2107,16 @@
         eraserLayer.setAttribute('pointer-events', 'none');
       }
 
-      // Вставляем слой замазки строго ПЕРЕД колоннами, чтобы они всегда были сверху
       if (g2 && f2Columns) {
         g2.insertBefore(eraserLayer, f2Columns);
       } else if (g2) {
         g2.appendChild(eraserLayer);
       }
 
-      // Очистка
       while (eraserLayer.firstChild) {
         eraserLayer.removeChild(eraserLayer.firstChild);
       }
 
-      // Рисование
       const renderedWalls = new Set();
       manifest.rooms.forEach(room => {
         if (room.sharedWalls) {
@@ -2305,17 +2272,15 @@
       clearHoverRooms();
       hideTooltip();
     });
-  });
 
-      // Клик по комнате — скроллим правую панель к её карточке
+    // ОБРАБОТЧИК КЛИКА ТЕПЕРЬ ВНУТРИ ЦИКЛА (там, где есть el и meta)
     el.addEventListener('click', () => {
       if (isPanning) return;
-
       try {
         const room = roomById.get(meta.rooms[0]);
         if (!room) return;
 
-        // Открываем аккордеон "Конфигурация аудиторий", если он закрыт
+        // Открываем аккордеон "Конфигурация аудиторий"
         const configBtn = document.getElementById('btn-config');
         const configContent = document.getElementById('config-content');
         if (configBtn && configContent && !configBtn.classList.contains('active')) {
@@ -2338,10 +2303,10 @@
           });
         }
 
-        // Находим карточку этой комнаты и скроллим к ней
+        // Находим карточку комнаты и скроллим к ней
         setTimeout(() => {
           const targetId = room.number || room.id;
-          const safeId = String(targetId).replace(/"/g, '\\"'); // Защита от кавычек
+          const safeId = String(targetId).replace(/"/g, '\\"');
           const targetCard = document.querySelector(`.room-card[data-room-id="${safeId}"]`);
 
           if (targetCard) {
@@ -2355,6 +2320,7 @@
         console.warn('Ошибка при клике на комнату:', e);
       }
     });
+  });
 
   // Отключаем перехват мыши у всего, чего нет в манифесте
   svg.querySelectorAll('rect, path, polygon, circle, line, text, polyline').forEach(el => {
@@ -2461,7 +2427,7 @@
           row('Номер', room.id, 'text') + row('Размеры', room.id, 'sizes') +
         '</div>' + extraHtml;
       content.appendChild(card);
-      injectSchedule(card, room.number || room.id); // <--- ДОБАВИТЬ ВОТ СЮДА
+      // Здесь мы НЕ вызываем injectSchedule, это сделает fetch, когда данные придут
     });
     subAcc.appendChild(btn);
     subAcc.appendChild(content);
@@ -2545,7 +2511,6 @@
       const room = manifest.rooms.find(r => r.number.toLowerCase() === query || r.id.toLowerCase() === query);
 
       if (room) {
-        // Если мы смотрим "Оба" этажа или не тот этаж — принудительно переключаем на нужный
         if (state.floors !== room.floor) {
           state.floors = room.floor;
           document.querySelectorAll('#floors button').forEach(b => b.classList.toggle('active', b.dataset.floor === room.floor));
@@ -2568,7 +2533,6 @@
             const baseCenterX = baseVB.x + baseVB.w / 2;
             const baseCenterY = baseVB.y + baseVB.h / 2;
 
-            // ИСПРАВЛЕНИЕ: Вычитаем из координат комнаты координаты центра (а не наоборот)
             state.panX = roomCenterX - baseCenterX;
             state.panY = roomCenterY - baseCenterY;
 
@@ -2726,11 +2690,15 @@
 
     const clone = svg.cloneNode(true);
 
+    // ИСПРАВЛЕНО: Используем f1_outline и f2_outline вместо текстовых названий
+    const outline1 = clone.querySelector('[id="f1_outline"]');
+    const outline2 = clone.querySelector('[id="f2_outline"]');
+    const g1 = outline1 ? outline1.parentNode : null;
+    const g2 = outline2 ? outline2.parentNode : null;
+
     if (floorVal === 'f1' || (floorVal === 'current' && state.floors === 'f1')) {
-      const g2 = clone.querySelector('[id="Этаж 2"]');
       if (g2) g2.remove();
     } else if (floorVal === 'f2' || (floorVal === 'current' && state.floors === 'f2')) {
-      const g1 = clone.querySelector('[id="Этаж 1"]');
       if (g1) g1.remove();
     }
 
@@ -2854,8 +2822,12 @@
   document.getElementById('btn-svg').addEventListener('click', downloadSVG);
   document.getElementById('btn-png').addEventListener('click', downloadPNG);
   document.getElementById('btn-print').addEventListener('click', printPDF);
-    function injectSchedule(card, roomNumber) {
+
+  function injectSchedule(card, roomNumber) {
     if (!scheduleData.length || !roomNumber) return;
+
+    // Защита от дублей: если расписание уже вставлено, не вставляем снова
+    if (card.querySelector('.schedule-section')) return;
 
     // Ищем все пары для этой комнаты
     const roomSchedule = scheduleData.filter(item => item.rooms.includes(roomNumber));
