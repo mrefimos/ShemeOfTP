@@ -30,7 +30,8 @@
   #btn-fullscreen { font-size: 12px; padding: 6px 10px; }
 
   main { flex: 1; min-height: 0; display: grid; grid-template-columns: 260px 1fr 360px; transition: grid-template-columns 0.3s; }
-  main.fullscreen { grid-template-columns: 0px 1fr 0px; }
+  /* Принудительно оставляем одну колонку во весь экран */
+  main.fullscreen { grid-template-columns: 1fr; }
   main.fullscreen aside { display: none; }
 
   aside { padding: 16px; background: var(--bg-soft); overflow-y: auto; }
@@ -131,6 +132,35 @@
     #print-header, #svg-container { page-break-inside: avoid; break-inside: avoid; }
   }
   #print-header { display: none; }
+
+    /* Адаптив для мобильных устройств и планшетов */
+  @media (max-width: 1024px) {
+    main {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .plan-wrap {
+      order: -1; /* Карта всегда сверху */
+      height: 60vh;
+      min-height: 400px;
+    }
+    aside {
+      height: auto;
+      max-height: none;
+      border-right: none;
+      border-left: none;
+      border-top: 1px solid var(--border);
+    }
+    /* В полноэкранном режиме на мобилке скрываем шапку, чтобы карта была на весь экран */
+    main.fullscreen .plan-wrap {
+      height: 100vh;
+      min-height: 100vh;
+    }
+    header { transition: all 0.3s; }
+    main.fullscreen header { display: none; }
+  }
+
 </style>
 </head>
 <body>
@@ -180,7 +210,6 @@
 <g id="&#208;&#159;&#208;&#155;&#208;&#144;&#208;&#157;">
 <g id="&#208;&#173;&#209;&#130;&#208;&#176;&#208;&#182; 2">
 <rect width="1255" height="1227" rx="2" fill="white"/>
-<rect x="0.5" y="0.5" width="1254" height="1226" rx="1.5" stroke="black" stroke-opacity="0.1"/>
 <rect id="f2_outline" x="86" y="76" width="1086" height="1074" rx="29" fill="white" stroke-width="6" stroke="#2C4FA7"/>
 <g id="f2_rooms">
 <rect id="207a walls" x="195.5" y="924.5" width="256" height="125" stroke-width="3" stroke="black"/>
@@ -908,10 +937,64 @@
 <line id="Line 3" x1="2147.5" y1="188" x2="2147.5" y2="283" stroke-width="3" stroke="black"/>
 <line id="Line 9" x1="2256.5" y1="578" x2="2256.5" y2="626" stroke-width="3" stroke="black"/>
 <line id="Line 10" x1="2284" y1="624.5" x2="2255" y2="624.5" stroke-width="3" stroke="black"/>
-<line id="Line 5" x1="1860.51" y1="353.001" x2="1860.5" y2="364.001" stroke-width="3" stroke="black"/>
+<path id="Line 5" d="M1860.5 353.001L1860.51 364.328" stroke-width="3" stroke="black"/>
 <line id="Line 6" x1="2032.5" y1="353" x2="2032.5" y2="364" stroke-width="3" stroke="black"/>
 <rect id="filler4_2" x="2119.5" y="554.5" width="137" height="29" fill="#D9D9D9" stroke-width="3" stroke="black"/>
 <rect id="exit block" x="1830" y="1051" width="120" height="56" stroke-width="6" stroke="black"/>
+</g>
+<g id="f1_columns">
+<rect id="Rectangle 59_2" x="2310.5" y="677.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 60_2" x="2178.5" y="677.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 65_2" x="1938.5" y="677.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 87_2" x="1700.5" y="677.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 116" x="2058.5" y="677.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 88_2" x="1586.5" y="677.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 89_2" x="1453.5" y="677.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 39_2" x="1453.5" y="436.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 40_2" x="1580.5" y="436.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 43_2" x="1700.5" y="319.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 44" x="1700.5" y="189.5" width="10" height="10" fill="#939393" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 45_2" x="1700.5" y="189.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 49_2" x="1938.5" y="319.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 50_2" x="2058.5" y="319.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 51_2" x="2178.5" y="189.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 52_2" x="2178.5" y="319.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 54_2" x="2310.5" y="319.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 56_2" x="2310.5" y="436.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 58_2" x="2310.5" y="556.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 63" x="1819.5" y="677.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 68_2" x="1819.5" y="556.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 69_2" x="1944.5" y="1039.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 70_2" x="1825.5" y="1039.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 78_2" x="1704.5" y="1039.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 79_2" x="1586.5" y="1039.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 80_2" x="1453.5" y="1039.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 81_2" x="1704.5" y="919.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 82_2" x="1586.5" y="919.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 83_2" x="1453.5" y="919.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 67_2" x="1938.5" y="556.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 114" x="1699.5" y="556.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 115" x="2058.5" y="556.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 90_2" x="1453.5" y="556.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 85_2" x="1586.5" y="798.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 86_2" x="1453.5" y="798.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 42_2" x="1580.5" y="319.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 41_2" x="1699.5" y="436.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 72_2" x="1825.5" y="914.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 73_2" x="2183.5" y="1039.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 77_2" x="2310.5" y="1039.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 74_2" x="2064.5" y="1039.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 75_2" x="2183.5" y="914.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 76_2" x="2064.5" y="914.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 92_42" x="1944.5" y="914.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 61_2" x="2178.5" y="785.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 122" x="2310.5" y="785.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 55_2" x="2178.5" y="436.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 57_2" x="2058.5" y="436.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 53_2" x="2310.5" y="189.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 48_2" x="1938.5" y="189.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 47_2" x="1819.5" y="319.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
+<rect id="Rectangle 46" x="1818.5" y="189.5" width="10" height="10" fill="black" stroke-width="3" stroke="black"/>
 </g>
 <g id="f1_stairs">
 <g id="stair-up-down">
@@ -1038,257 +1121,257 @@
 </g>
 <g id="f1_doors">
 <g id="door-left_41">
-<rect id="Rectangle 92_42" x="1557.96" y="253" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_43" x="1557.96" y="253" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_259" d="M1581 254V277.958" stroke-width="3.5" stroke="black"/>
 <path id="Vector_260" d="M1581 277C1574.63 277 1568.53 274.471 1564.03 269.971C1559.53 265.47 1557 259.365 1557 253" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_42">
-<rect id="Rectangle 92_43" x="1522.96" y="380" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_44" x="1522.96" y="380" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_261" d="M1546 381V404.958" stroke-width="3.5" stroke="black"/>
 <path id="Vector_262" d="M1546 404C1539.63 404 1533.53 401.471 1529.03 396.971C1524.53 392.47 1522 386.365 1522 380" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_43">
-<rect id="Rectangle 92_44" x="1557.96" y="328" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_45" x="1557.96" y="328" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_263" d="M1581 329V352.958" stroke-width="3.5" stroke="black"/>
 <path id="Vector_264" d="M1581 352C1574.63 352 1568.53 349.471 1564.03 344.971C1559.53 340.47 1557 334.365 1557 328" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_44">
-<rect id="Rectangle 92_45" x="1511" y="416.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_46" x="1511" y="416.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_265" d="M1512 415H1535.96" stroke-width="3.5" stroke="black"/>
 <path id="Vector_266" d="M1535 415C1535 421.365 1532.47 427.47 1527.97 431.971C1523.47 436.471 1517.37 439 1511 439" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_45">
-<rect id="Rectangle 92_46" x="1500.96" y="457.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_47" x="1500.96" y="457.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_267" d="M1502.96 456H1479" stroke-width="3.5" stroke="black"/>
 <path id="Vector_268" d="M1479.96 456C1479.96 462.365 1482.49 468.47 1486.99 472.971C1491.49 477.471 1497.59 480 1503.96 480" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_46">
-<rect id="Rectangle 92_47" x="1542.92" y="486" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_48" x="1542.92" y="486" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_269" d="M1541 488V464.042" stroke-width="3.5" stroke="black"/>
 <path id="Vector_270" d="M1541 465C1547.37 465 1553.47 467.529 1557.97 472.029C1562.47 476.53 1565 482.635 1565 489" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_47">
-<rect id="Rectangle 92_48" x="1584.04" y="456.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_49" x="1584.04" y="456.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_271" d="M1585.04 455H1609" stroke-width="3.5" stroke="black"/>
 <path id="Vector_272" d="M1608.04 455C1608.04 461.365 1605.51 467.47 1601.01 471.971C1596.51 476.471 1590.41 479 1584.04 479" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_48">
-<rect id="Rectangle 92_49" x="1821.96" y="401.96" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_50" x="1821.96" y="401.96" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_273" d="M1823.96 425H1800" stroke-width="3.5" stroke="black"/>
 <path id="Vector_274" d="M1800.96 425C1800.96 418.635 1803.49 412.53 1807.99 408.029C1812.49 403.529 1818.59 401 1824.96 401" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_49">
-<rect id="Rectangle 92_50" x="2062" y="402.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_51" x="2062" y="402.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_275" d="M2063 401H2086.96" stroke-width="3.5" stroke="black"/>
 <path id="Vector_276" d="M2086 401C2086 407.365 2083.47 413.47 2078.97 417.971C2074.47 422.471 2068.37 425 2062 425" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_50">
-<rect id="Rectangle 92_51" x="2132.92" y="487.958" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_52" x="2132.92" y="487.958" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_277" d="M2131 489.958V466" stroke-width="3.5" stroke="black"/>
 <path id="Vector_278" d="M2131 466.958C2137.37 466.958 2143.47 469.487 2147.97 473.987C2152.47 478.488 2155 484.593 2155 490.958" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_51">
-<rect id="Rectangle 92_52" x="2117.96" y="814.96" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_53" x="2117.96" y="814.96" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_279" d="M2119.96 838H2096" stroke-width="3.5" stroke="black"/>
 <path id="Vector_280" d="M2096.96 838C2096.96 831.635 2099.49 825.53 2103.99 821.029C2108.49 816.529 2114.59 814 2120.96 814" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_52">
-<rect id="Rectangle 92_53" x="2251.96" y="889.96" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_54" x="2251.96" y="889.96" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_281" d="M2253.96 913H2230" stroke-width="3.5" stroke="black"/>
 <path id="Vector_282" d="M2230.96 913C2230.96 906.635 2233.49 900.53 2237.99 896.029C2242.49 891.529 2248.59 889 2254.96 889" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_53">
-<rect id="Rectangle 92_54" x="2202.92" y="917.958" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_55" x="2202.92" y="917.958" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_283" d="M2201 919.958V896" stroke-width="3.5" stroke="black"/>
 <path id="Vector_284" d="M2201 896.958C2207.37 896.958 2213.47 899.487 2217.97 903.987C2222.47 908.488 2225 914.593 2225 920.958" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_54">
-<rect id="Rectangle 92_55" x="2021.92" y="992.958" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_56" x="2021.92" y="992.958" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_285" d="M2020 994.958V971" stroke-width="3.5" stroke="black"/>
 <path id="Vector_286" d="M2020 971.958C2026.37 971.958 2032.47 974.487 2036.97 978.987C2041.47 983.488 2044 989.593 2044 995.958" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_55">
-<rect id="Rectangle 92_56" x="1866.92" y="584.958" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_57" x="1866.92" y="584.958" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_287" d="M1865 586.958V563" stroke-width="3.5" stroke="black"/>
 <path id="Vector_288" d="M1865 563.958C1871.37 563.958 1877.47 566.487 1881.97 570.987C1886.47 575.488 1889 581.593 1889 587.958" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_56">
-<rect id="Rectangle 92_57" x="2264.96" y="878" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_58" x="2264.96" y="878" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_289" d="M2288 879V902.958" stroke-width="3.5" stroke="black"/>
 <path id="Vector_290" d="M2288 902C2281.63 902 2275.53 899.471 2271.03 894.971C2266.53 890.47 2264 884.365 2264 878" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_57">
-<rect id="Rectangle 92_58" x="2231.92" y="487.958" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_59" x="2231.92" y="487.958" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_291" d="M2230 489.958V466" stroke-width="3.5" stroke="black"/>
 <path id="Vector_292" d="M2230 466.958C2236.37 466.958 2242.47 469.487 2246.97 473.987C2251.47 478.488 2254 484.593 2254 490.958" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_58">
-<rect id="Rectangle 92_59" x="2278" y="453.96" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_60" x="2278" y="453.96" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_293" d="M2279 477H2302.96" stroke-width="3.5" stroke="black"/>
 <path id="Vector_294" d="M2302 477C2302 470.635 2299.47 464.53 2294.97 460.029C2290.47 455.529 2284.37 453 2278 453" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_59">
-<rect id="Rectangle 92_60" x="2155" y="440" width="17" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_61" x="2155" y="440" width="17" height="3" fill="#CACACA"/>
 <path id="Vector_295" d="M2174 440.801V460" stroke-width="3.5" stroke="black"/>
 <path id="Vector_296" d="M2174 459.232C2168.7 459.232 2163.61 457.206 2159.86 453.599C2156.11 449.993 2154 445.101 2154 440" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_60">
-<rect id="Rectangle 92_61" x="2156" y="388" width="17" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_62" x="2156" y="388" width="17" height="3" fill="#CACACA"/>
 <path id="Vector_297" d="M2175 388.801V408" stroke-width="3.5" stroke="black"/>
 <path id="Vector_298" d="M2175 407.232C2169.7 407.232 2164.61 405.206 2160.86 401.599C2157.11 397.993 2155 393.101 2155 388" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_61">
-<rect id="Rectangle 92_62" x="2183" y="412" width="3" height="17" fill="#CACACA"/>
+<rect id="Rectangle 92_63" x="2183" y="412" width="3" height="17" fill="#CACACA"/>
 <path id="Vector_299" d="M2185.2 431H2166" stroke-width="3.5" stroke="black"/>
 <path id="Vector_300" d="M2166.77 431C2166.77 425.696 2168.79 420.609 2172.4 416.858C2176.01 413.107 2180.9 411 2186 411" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_62">
-<rect id="Rectangle 92_63" x="2072.96" y="322" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_64" x="2072.96" y="322" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_301" d="M2096 323V346.958" stroke-width="3.5" stroke="black"/>
 <path id="Vector_302" d="M2096 346C2089.63 346 2083.53 343.471 2079.03 338.971C2074.53 334.47 2072 328.365 2072 322" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_63">
-<rect id="Rectangle 92_64" x="1625.96" y="440" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_65" x="1625.96" y="440" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_303" d="M1649 441V464.958" stroke-width="3.5" stroke="black"/>
 <path id="Vector_304" d="M1649 464C1642.63 464 1636.53 461.471 1632.03 456.971C1627.53 452.47 1625 446.365 1625 440" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_64">
-<rect id="Rectangle 92_65" x="1653" y="513.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_66" x="1653" y="513.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_305" d="M1654 512H1677.96" stroke-width="3.5" stroke="black"/>
 <path id="Vector_306" d="M1677 512C1677 518.365 1674.47 524.47 1669.97 528.971C1665.47 533.471 1659.37 536 1653 536" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_65">
-<rect id="Rectangle 92_66" x="1653" y="650.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_67" x="1653" y="650.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_307" d="M1654 649H1677.96" stroke-width="3.5" stroke="black"/>
 <path id="Vector_308" d="M1677 649C1677 655.365 1674.47 661.47 1669.97 665.971C1665.47 670.471 1659.37 673 1653 673" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_66">
-<rect id="Rectangle 92_67" x="1653" y="698.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_68" x="1653" y="698.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_309" d="M1654 697H1677.96" stroke-width="3.5" stroke="black"/>
 <path id="Vector_310" d="M1677 697C1677 703.365 1674.47 709.47 1669.97 713.971C1665.47 718.471 1659.37 721 1653 721" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_67">
-<rect id="Rectangle 92_68" x="1553.92" y="849.958" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_69" x="1553.92" y="849.958" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_311" d="M1552 851.958V828" stroke-width="3.5" stroke="black"/>
 <path id="Vector_312" d="M1552 828.958C1558.37 828.958 1564.47 831.487 1568.97 835.987C1573.47 840.488 1576 846.593 1576 852.958" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_68">
-<rect id="Rectangle 92_69" x="1501.96" y="817.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_70" x="1501.96" y="817.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_313" d="M1503.96 816H1480" stroke-width="3.5" stroke="black"/>
 <path id="Vector_314" d="M1480.96 816C1480.96 822.365 1483.49 828.47 1487.99 832.971C1492.49 837.471 1498.59 840 1504.96 840" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_69">
-<rect id="Rectangle 92_70" x="1590" y="815.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_71" x="1590" y="815.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_315" d="M1591 814H1614.96" stroke-width="3.5" stroke="black"/>
 <path id="Vector_316" d="M1614 814C1614 820.365 1611.47 826.47 1606.97 830.971C1602.47 835.471 1596.37 838 1590 838" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_70">
-<rect id="Rectangle 92_71" x="1703" y="815.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_72" x="1703" y="815.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_317" d="M1704 814H1727.96" stroke-width="3.5" stroke="black"/>
 <path id="Vector_318" d="M1727 814C1727 820.365 1724.47 826.47 1719.97 830.971C1715.47 835.471 1709.37 838 1703 838" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_71">
-<rect id="Rectangle 92_72" x="1889.96" y="802" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_73" x="1889.96" y="802" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_319" d="M1913 803V826.958" stroke-width="3.5" stroke="black"/>
 <path id="Vector_320" d="M1913 826C1906.63 826 1900.53 823.471 1896.03 818.971C1891.53 814.47 1889 808.365 1889 802" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_72">
-<rect id="Rectangle 92_73" x="1866.92" y="802" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_74" x="1866.92" y="802" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_321" d="M1865 803V826.958" stroke-width="3.5" stroke="black"/>
 <path id="Vector_322" d="M1865 826C1871.37 826 1877.47 823.471 1881.97 818.971C1886.47 814.47 1889 808.365 1889 802" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_73">
-<rect id="Rectangle 92_74" x="1889.96" y="802" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_75" x="1889.96" y="802" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_323" d="M1913 803V826.958" stroke-width="3.5" stroke="black"/>
 <path id="Vector_324" d="M1913 826C1906.63 826 1900.53 823.471 1896.03 818.971C1891.53 814.47 1889 808.365 1889 802" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_74">
-<rect id="Rectangle 92_75" x="1866.92" y="802" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_76" x="1866.92" y="802" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_325" d="M1865 803V826.958" stroke-width="3.5" stroke="black"/>
 <path id="Vector_326" d="M1865 826C1871.37 826 1877.47 823.471 1881.97 818.971C1886.47 814.47 1889 808.365 1889 802" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_75">
-<rect id="Rectangle 92_76" x="1702.96" y="481.96" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_77" x="1702.96" y="481.96" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_327" d="M1704.96 505H1681" stroke-width="3.5" stroke="black"/>
 <path id="Vector_328" d="M1681.96 505C1681.96 498.635 1684.49 492.53 1688.99 488.029C1693.49 483.529 1699.59 481 1705.96 481" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_76">
-<rect id="Rectangle 92_77" x="1702.96" y="458.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_78" x="1702.96" y="458.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_329" d="M1704.96 457H1681" stroke-width="3.5" stroke="black"/>
 <path id="Vector_330" d="M1681.96 457C1681.96 463.365 1684.49 469.47 1688.99 473.971C1693.49 478.471 1699.59 481 1705.96 481" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_77">
-<rect id="Rectangle 92_78" x="2064" y="481.96" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_79" x="2064" y="481.96" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_331" d="M2065 505H2088.96" stroke-width="3.5" stroke="black"/>
 <path id="Vector_332" d="M2088 505C2088 498.635 2085.47 492.53 2080.97 488.029C2076.47 483.529 2070.37 481 2064 481" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_78">
-<rect id="Rectangle 92_79" x="2064" y="458.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_80" x="2064" y="458.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_333" d="M2065 457H2088.96" stroke-width="3.5" stroke="black"/>
 <path id="Vector_334" d="M2088 457C2088 463.365 2085.47 469.47 2080.97 473.971C2076.47 478.471 2070.37 481 2064 481" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_79">
-<rect id="Rectangle 92_80" x="2063.96" y="878.96" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_81" x="2063.96" y="878.96" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_335" d="M2065.96 902H2042" stroke-width="3.5" stroke="black"/>
 <path id="Vector_336" d="M2042.96 902C2042.96 895.635 2045.49 889.53 2049.99 885.029C2054.49 880.529 2060.59 878 2066.96 878" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_80">
-<rect id="Rectangle 92_81" x="1615.92" y="849.958" width="21.12" height="3" fill="#CACACA"/>
+<rect id="Rectangle 92_82" x="1615.92" y="849.958" width="21.12" height="3" fill="#CACACA"/>
 <path id="Vector_337" d="M1614 851.958V828" stroke-width="3.5" stroke="black"/>
 <path id="Vector_338" d="M1614 828.958C1620.37 828.958 1626.47 831.487 1630.97 835.987C1635.47 840.488 1638 846.593 1638 852.958" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_81">
 <path id="Vector_339" d="M1454 456H1431" stroke-width="3.5" stroke="black"/>
 <path id="Vector_340" d="M1431.92 456C1431.92 462.365 1434.35 468.47 1438.67 472.971C1442.99 477.471 1448.85 480 1454.96 480" stroke-width="1.5" stroke="black"/>
-<rect id="Rectangle 92_82" x="1448.96" y="458" width="6" height="20" fill="#CACACA"/>
+<rect id="Rectangle 92_83" x="1448.96" y="458" width="6" height="20" fill="#CACACA"/>
 </g>
 <g id="door-left_82">
 <path id="Vector_341" d="M1454 816H1431" stroke-width="3.5" stroke="black"/>
 <path id="Vector_342" d="M1431.92 816C1431.92 822.365 1434.35 828.47 1438.67 832.971C1442.99 837.471 1448.85 840 1454.96 840" stroke-width="1.5" stroke="black"/>
-<rect id="Rectangle 92_83" x="1448.96" y="818" width="6" height="20" fill="#CACACA"/>
+<rect id="Rectangle 92_84" x="1448.96" y="818" width="6" height="20" fill="#CACACA"/>
 </g>
 <g id="door-left_83">
-<rect id="Rectangle 92_84" x="1554" y="293.92" width="3" height="21.12" fill="#CACACA"/>
+<rect id="Rectangle 92_85" x="1554" y="293.92" width="3" height="21.12" fill="#CACACA"/>
 <path id="Vector_343" d="M1555 292H1578.96" stroke-width="3.5" stroke="black"/>
 <path id="Vector_344" d="M1578 292C1578 298.365 1575.47 304.47 1570.97 308.971C1566.47 313.471 1560.37 316 1554 316" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_84">
-<rect id="Rectangle 92_85" x="2319" y="453" width="6" height="21" fill="#CACACA"/>
+<rect id="Rectangle 92_86" x="2319" y="453" width="6" height="21" fill="#CACACA"/>
 <path id="Vector_345" d="M2323.04 476H2347" stroke-width="3.5" stroke="black"/>
 <path id="Vector_346" d="M2346.04 476C2346.04 469.635 2343.51 463.53 2339.01 459.029C2334.51 454.529 2328.41 452 2322.04 452" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_85">
-<rect id="Rectangle 92_86" x="2354" y="797" width="21" height="6" fill="#CACACA"/>
+<rect id="Rectangle 92_87" x="2354" y="797" width="21" height="6" fill="#CACACA"/>
 <path id="Vector_347" d="M2377 798.958V775" stroke-width="3.5" stroke="black"/>
 <path id="Vector_348" d="M2377 775.958C2370.63 775.958 2364.53 778.487 2360.03 782.987C2355.53 787.488 2353 793.593 2353 799.958" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_86">
-<rect id="Rectangle 92_87" x="2319" y="891" width="8" height="21" fill="#CACACA"/>
+<rect id="Rectangle 92_88" x="2319" y="891" width="8" height="21" fill="#CACACA"/>
 <path id="Vector_349" d="M2323.04 914H2347" stroke-width="3.5" stroke="black"/>
 <path id="Vector_350" d="M2346.04 914C2346.04 907.635 2343.51 901.53 2339.01 897.029C2334.51 892.529 2328.41 890 2322.04 890" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_87">
-<rect id="Rectangle 92_88" x="1851" y="1048" width="21" height="6" fill="#CACACA"/>
+<rect id="Rectangle 92_89" x="1851" y="1048" width="21" height="6" fill="#CACACA"/>
 <path id="Vector_351" d="M1874 1052.04V1076" stroke-width="3.5" stroke="black"/>
 <path id="Vector_352" d="M1874 1075.04C1867.63 1075.04 1861.53 1072.51 1857.03 1068.01C1852.53 1063.51 1850 1057.41 1850 1051.04" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_88">
-<rect id="Rectangle 92_89" x="1899" y="1048" width="21" height="6" fill="#CACACA"/>
+<rect id="Rectangle 92_90" x="1899" y="1048" width="21" height="6" fill="#CACACA"/>
 <path id="Vector_353" d="M1922 1052.04V1076" stroke-width="3.5" stroke="black"/>
 <path id="Vector_354" d="M1922 1075.04C1915.63 1075.04 1909.53 1072.51 1905.03 1068.01C1900.53 1063.51 1898 1057.41 1898 1051.04" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_89">
-<rect id="Rectangle 92_90" x="1899" y="1048" width="21" height="6" fill="#CACACA"/>
+<rect id="Rectangle 92_91" x="1899" y="1048" width="21" height="6" fill="#CACACA"/>
 <path id="Vector_355" d="M1922 1052.04V1076" stroke-width="3.5" stroke="black"/>
 <path id="Vector_356" d="M1922 1075.04C1915.63 1075.04 1909.53 1072.51 1905.03 1068.01C1900.53 1063.51 1898 1057.41 1898 1051.04" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_90">
-<rect id="Rectangle 92_91" x="1851" y="1104" width="21" height="6" fill="#CACACA"/>
+<rect id="Rectangle 92_92" x="1851" y="1104" width="21" height="6" fill="#CACACA"/>
 <path id="Vector_357" d="M1874 1108.04V1132" stroke-width="3.5" stroke="black"/>
 <path id="Vector_358" d="M1874 1131.04C1867.63 1131.04 1861.53 1128.51 1857.03 1124.01C1852.53 1119.51 1850 1113.41 1850 1107.04" stroke-width="1.5" stroke="black"/>
 </g>
 <g id="door-left_91">
-<rect id="Rectangle 92_92" x="1899" y="1104" width="21" height="6" fill="#CACACA"/>
+<rect id="Rectangle 92_93" x="1899" y="1104" width="21" height="6" fill="#CACACA"/>
 <path id="Vector_359" d="M1922 1108.04V1132" stroke-width="3.5" stroke="black"/>
 <path id="Vector_360" d="M1922 1131.04C1915.63 1131.04 1909.53 1128.51 1905.03 1124.01C1900.53 1119.51 1898 1113.41 1898 1107.04" stroke-width="1.5" stroke="black"/>
 </g>
@@ -2351,7 +2434,8 @@
       const room = manifest.rooms.find(r => r.number.toLowerCase() === query || r.id.toLowerCase() === query);
 
       if (room) {
-        if (state.floors !== room.floor && state.floors !== 'both') {
+        // Если мы смотрим "Оба" этажа или не тот этаж — принудительно переключаем на нужный
+        if (state.floors !== room.floor) {
           state.floors = room.floor;
           document.querySelectorAll('#floors button').forEach(b => b.classList.toggle('active', b.dataset.floor === room.floor));
           applyAll();
@@ -2373,8 +2457,9 @@
             const baseCenterX = baseVB.x + baseVB.w / 2;
             const baseCenterY = baseVB.y + baseVB.h / 2;
 
-            state.panX = (baseCenterX - roomCenterX);
-            state.panY = (baseCenterY - roomCenterY);
+            // ИСПРАВЛЕНИЕ: Вычитаем из координат комнаты координаты центра (а не наоборот)
+            state.panX = roomCenterX - baseCenterX;
+            state.panY = roomCenterY - baseCenterY;
 
             updateViewBox();
           }
