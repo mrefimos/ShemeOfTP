@@ -1,0 +1,9 @@
+pages:
+  stage: deploy
+  script:
+    - echo "Публикуем статический сайт..."
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" # или "master", в зависимости от твоей главной ветки
