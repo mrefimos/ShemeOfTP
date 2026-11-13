@@ -161,12 +161,46 @@
     main.fullscreen header { display: none; }
   }
 
+    /* Часы */
+  #live-clock { font-variant-numeric: tabular-nums; }
+
+  /* Блок расписания в карточке */
+  .schedule-section { margin-top: 12px; border-top: 1px dashed var(--gray-soft); padding-top: 10px; }
+  .schedule-title { font-size: 11px; font-weight: 600; color: var(--gray); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .schedule-list { display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; padding-right: 4px; }
+
+  /* Стилизация скроллбара */
+  .schedule-list::-webkit-scrollbar { width: 4px; }
+  .schedule-list::-webkit-scrollbar-thumb { background: var(--gray-soft); border-radius: 4px; }
+
+  .schedule-item {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 11px;
+    line-height: 1.4;
+    border-left: 3px solid var(--gray-soft);
+  }
+
+  /* Пастельные цвета индикаторов */
+  .sec-it { border-left-color: #A0C4FF; background: #F4F8FF; }
+  .sec-radio { border-left-color: #FDE68A; background: #FFFDF5; }
+  .sec-chem { border-left-color: #A7F3D0; background: #F4FDF9; }
+  .sec-design { border-left-color: #E9D5FF; background: #FAF7FF; }
+  .sec-econ { border-left-color: #FECACA; background: #FFF5F5; }
+
+  .sch-time { font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
+  .sch-group { color: var(--blue); font-weight: 500; }
+  .sch-teacher { color: var(--gray); font-size: 10px; margin-top: 2px; }
+
 </style>
 </head>
 <body>
 
 <header>
   <h1>Конструктор зонирования Детского технопарка «Альтаир»</h1>
+    <div id="live-clock" style="font-size: 14px; color: var(--gray); font-weight: 500; margin-left: auto; margin-right: 20px;"></div>
   <button id="btn-fullscreen">На весь экран</button>
 </header>
 
@@ -1949,6 +1983,33 @@
   const table = document.getElementById('rooms-table');
 
   if (!svg) return;
+    // --- Часы реального времени ---
+  function updateClock() {
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('ru-RU', { weekday: 'short', day: 'numeric', month: 'long' });
+    const timeStr = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const clockEl = document.getElementById('live-clock');
+    if (clockEl) clockEl.textContent = `${dateStr}, ${timeStr}`;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // --- Загрузка расписания ---
+  let scheduleData = [];
+  fetch('./schedule.json')
+    .then(response => {
+      if (!response.ok) throw new Error('Нет файла schedule.json');
+      return response.json();
+    })
+    .then(data => {
+      scheduleData = data;
+      // Если карточки уже отрисованы, нужно обновить их, добавив расписание
+      document.querySelectorAll('.room-card').forEach(card => {
+        const roomId = card.dataset.roomId;
+        if (roomId) injectSchedule(card, roomId);
+      });
+    })
+    .catch(err => console.warn('Расписание не загружено:', err));
 
   svg.removeAttribute('width');
   svg.removeAttribute('height');
@@ -2246,6 +2307,55 @@
     });
   });
 
+      // Клик по комнате — скроллим правую панель к её карточке
+    el.addEventListener('click', () => {
+      if (isPanning) return;
+
+      try {
+        const room = roomById.get(meta.rooms[0]);
+        if (!room) return;
+
+        // Открываем аккордеон "Конфигурация аудиторий", если он закрыт
+        const configBtn = document.getElementById('btn-config');
+        const configContent = document.getElementById('config-content');
+        if (configBtn && configContent && !configBtn.classList.contains('active')) {
+          configBtn.classList.add('active');
+          configContent.classList.add('open');
+        }
+
+        // Открываем нужный этаж в списке
+        const floorNames = { f1: '1 этаж', f2: '2 этаж' };
+        const floorName = floorNames[room.floor];
+
+        if (floorName) {
+          const subBtns = document.querySelectorAll('.sub-accordion-btn');
+          subBtns.forEach(btn => {
+            if (btn.textContent === floorName && !btn.classList.contains('active')) {
+              btn.classList.add('active');
+              const content = btn.nextElementSibling;
+              if (content) content.classList.add('open');
+            }
+          });
+        }
+
+        // Находим карточку этой комнаты и скроллим к ней
+        setTimeout(() => {
+          const targetId = room.number || room.id;
+          const safeId = String(targetId).replace(/"/g, '\\"'); // Защита от кавычек
+          const targetCard = document.querySelector(`.room-card[data-room-id="${safeId}"]`);
+
+          if (targetCard) {
+            targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            targetCard.style.transition = 'background 0.3s';
+            targetCard.style.background = 'var(--blue-soft)';
+            setTimeout(() => targetCard.style.background = '', 1000);
+          }
+        }, 100);
+      } catch (e) {
+        console.warn('Ошибка при клике на комнату:', e);
+      }
+    });
+
   // Отключаем перехват мыши у всего, чего нет в манифесте
   svg.querySelectorAll('rect, path, polygon, circle, line, text, polyline').forEach(el => {
     if (!el.classList.contains('room-elem')) {
@@ -2333,6 +2443,7 @@
     rooms.forEach(room => {
       const card = document.createElement('div');
       card.className = 'room-card';
+      card.dataset.roomId = room.number || room.id;
 
       let extraHtml = '';
       if (room.sharedWalls) {
@@ -2350,8 +2461,8 @@
           row('Номер', room.id, 'text') + row('Размеры', room.id, 'sizes') +
         '</div>' + extraHtml;
       content.appendChild(card);
+      injectSchedule(card, room.number || room.id); // <--- ДОБАВИТЬ ВОТ СЮДА
     });
-
     subAcc.appendChild(btn);
     subAcc.appendChild(content);
     table.appendChild(subAcc);
@@ -2743,6 +2854,42 @@
   document.getElementById('btn-svg').addEventListener('click', downloadSVG);
   document.getElementById('btn-png').addEventListener('click', downloadPNG);
   document.getElementById('btn-print').addEventListener('click', printPDF);
+    function injectSchedule(card, roomNumber) {
+    if (!scheduleData.length || !roomNumber) return;
+
+    // Ищем все пары для этой комнаты
+    const roomSchedule = scheduleData.filter(item => item.rooms.includes(roomNumber));
+    if (roomSchedule.length === 0) return;
+
+    // Определяем цвет секции
+    const getSecClass = (section) => {
+      if (section.includes('Информационные')) return 'sec-it';
+      if (section.includes('Радиоэлектроника')) return 'sec-radio';
+      if (section.includes('Химия')) return 'sec-chem';
+      if (section.includes('Дизайн')) return 'sec-design';
+      if (section.includes('Экономика') || section.includes('Юриспруденция')) return 'sec-econ';
+      return '';
+    };
+
+    const scheduleHtml = `
+      <div class="schedule-section">
+        <div class="schedule-title">Расписание на неделю</div>
+        <div class="schedule-list">
+          ${roomSchedule.map(item => `
+            <div class="schedule-item ${getSecClass(item.section)}">
+              <div class="sch-time">${escapeHtml(item.day_time)}</div>
+              <div class="sch-group">${escapeHtml(item.group)}</div>
+              <div>${escapeHtml(item.program)}</div>
+              <div class="sch-teacher">${escapeHtml(item.teacher)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    // Вставляем в конец карточки
+    card.insertAdjacentHTML('beforeend', scheduleHtml);
+  }
 
   // Инициализация при загрузке
   applyAll();
